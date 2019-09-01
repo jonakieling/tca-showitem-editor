@@ -38,6 +38,5 @@ state
 next up
 -------
 
-1. dynamic loading of the string from the input
-2. learn about palletes and render them correctly
-3. ui to edit the tabs configuration and get the updated string
+1. learn about palletes and render them correctly
+2. ui to edit the tabs configuration and get the updated string
