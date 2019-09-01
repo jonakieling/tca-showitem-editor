@@ -1,6 +1,6 @@
 class ShowitemTabs {
     constructor(showitemString) {
-        this.config = this.buildConfigFromString(showitemString);
+        this.buildConfigFromString(showitemString);
     }
 
     buildConfigFromString(showitemString) {
@@ -69,6 +69,7 @@ class ShowitemTabs {
             }
         }
 
+        this.config = config;
         return config;
     }
 

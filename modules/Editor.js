@@ -1,8 +1,9 @@
 class ShowitemEditor {
 
-    constructor(tabs, container) {
+    constructor(tabs, container, input) {
         this.tabs = tabs;
         this.container = container;
+        this.input = input;
 
         this.initContainer();
     }
@@ -74,5 +75,18 @@ class ShowitemEditor {
 
         contentContainer.appendChild(contentFragment);
         this.container.appendChild(contentContainer);
+    }
+
+    clearContainer() {
+        while (this.container.hasChildNodes()) {
+            this.container.removeChild(this.container.lastChild);
+        }
+    }
+
+    loadString() {
+        let string = this.input.value;
+        this.tabs.buildConfigFromString(string);
+        this.clearContainer();
+        this.initContainer();
     }
 }
