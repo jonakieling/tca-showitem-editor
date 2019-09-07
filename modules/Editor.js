@@ -27,7 +27,15 @@ class ShowitemEditor {
                 li.classList.add('active');
             }
             li.dataset.content = 'content-' + i;
-            li.textContent = this.simplifyLocalizedLabel(tab.name);
+            const moveTabLeft = document.createElement('i');
+            moveTabLeft.classList.add('fas', 'fa-caret-left');
+            li.appendChild(moveTabLeft);
+            const tabName = document.createElement('span');
+            tabName.textContent = ' ' + this.simplifyLocalizedLabel(tab.name) + ' ';
+            li.appendChild(tabName);
+            const moveTabRight = document.createElement('i');
+            moveTabRight.classList.add('fas', 'fa-caret-right');
+            li.appendChild(moveTabRight);
             li.setAttribute('title', tab.name);
             li.addEventListener('click', function (event) {
                 const activeNav = document.querySelectorAll('.nav-item.active');
@@ -52,19 +60,29 @@ class ShowitemEditor {
             }
             for (let j = 0; j < tab.items.length; j++) {
                 let item = tab.items[j];
+                const itemElement = document.createElement('div');
+
+                const moveItemUp = document.createElement('i');
+                moveItemUp.classList.add('fas', 'fa-caret-up');
+                itemElement.appendChild(moveItemUp);
+
+                const itemText = document.createElement('span');
                 if (item.type === 'palette') {
-                    const itemElement = document.createElement('div');
-                    itemElement.textContent = 'pallete ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label);
-                    div.appendChild(itemElement);
+                    itemText.textContent = ' pallete ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label) + ' ';
                 } else if (item.type === 'linebreak') {
                     const itemElement = document.createElement('div');
-                    itemElement.textContent = 'linebreak';
-                    div.appendChild(itemElement);
+                    itemText.textContent = ' linebreak ';
                 } else if (item.type === 'field') {
                     const itemElement = document.createElement('div');
-                    itemElement.textContent = 'field ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label);
-                    div.appendChild(itemElement);
+                    itemText.textContent = ' field ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label) + ' ';
                 }
+                itemElement.appendChild(itemText);
+
+                const moveItemDown = document.createElement('i');
+                moveItemDown.classList.add('fas', 'fa-caret-down');
+                itemElement.appendChild(moveItemDown);
+
+                div.appendChild(itemElement);
             }
             contentFragment.appendChild(div);
         }
