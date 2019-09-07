@@ -70,7 +70,6 @@ class ShowitemTabs {
         }
 
         this.config = config;
-        return config;
     }
 
     toString() {

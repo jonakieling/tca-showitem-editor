@@ -1,14 +1,13 @@
 class ShowitemEditor {
 
-    constructor(tabs, container, input) {
+    constructor(tabs, container) {
         this.tabs = tabs;
         this.container = container;
-        this.input = input;
 
-        this.initContainer();
+        this.buildEditor();
     }
 
-    initContainer() {
+    buildEditor() {
         const navFragment = document.createDocumentFragment();
         const navUl = document.createElement('ul');
         navUl.setAttribute('class', 'nav');
@@ -83,10 +82,9 @@ class ShowitemEditor {
         }
     }
 
-    loadString() {
-        let string = this.input.value;
-        this.tabs.buildConfigFromString(string);
+    reloadFromString(showitemString) {
+        this.tabs.buildConfigFromString(showitemString);
         this.clearContainer();
-        this.initContainer();
+        this.buildEditor();
     }
 }
