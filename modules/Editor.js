@@ -27,7 +27,7 @@ class ShowitemEditor {
                 li.classList.add('active');
             }
             li.dataset.content = 'content-' + i;
-            li.textContent = i;
+            li.textContent = this.simplifyLocalizedLabel(tab.name);
             li.setAttribute('title', tab.name);
             li.addEventListener('click', function (event) {
                 const activeNav = document.querySelectorAll('.nav-item.active');
@@ -54,7 +54,7 @@ class ShowitemEditor {
                 let item = tab.items[j];
                 if (item.type === 'palette') {
                     const itemElement = document.createElement('div');
-                    itemElement.textContent = 'pallete ' + item.identifier + ' ' + item.label;
+                    itemElement.textContent = 'pallete ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label);
                     div.appendChild(itemElement);
                 } else if (item.type === 'linebreak') {
                     const itemElement = document.createElement('div');
@@ -62,7 +62,7 @@ class ShowitemEditor {
                     div.appendChild(itemElement);
                 } else if (item.type === 'field') {
                     const itemElement = document.createElement('div');
-                    itemElement.textContent = item.identifier + ' ' + item.label;
+                    itemElement.textContent = 'field ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label);
                     div.appendChild(itemElement);
                 }
             }
@@ -74,6 +74,14 @@ class ShowitemEditor {
 
         contentContainer.appendChild(contentFragment);
         this.container.appendChild(contentContainer);
+    }
+
+    simplifyLocalizedLabel(label) {
+        if (label.startsWith('LLL:')) {
+            return label.split(':').pop()
+        }
+
+        return label;
     }
 
     clearContainer() {
