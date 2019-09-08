@@ -36,6 +36,8 @@ class ShowitemEditor {
     }
 
     createNavItem(i, tab) {
+        let thatEditor = this; // for event handlers
+
         const li = document.createElement('li');
         li.setAttribute('id', 'nav-' + i);
         li.classList.add('nav-item');
@@ -45,16 +47,24 @@ class ShowitemEditor {
         li.dataset.content = 'content-' + i;
         const moveTabLeft = document.createElement('i');
         moveTabLeft.classList.add('fas', 'fa-caret-left', 'move-tab');
-        moveTabLeft.dataset.id = i;
+        moveTabLeft.dataset.tab = i;
         moveTabLeft.dataset.direction = '-1';
+        moveTabLeft.addEventListener('click', function (event) {
+            event.stopPropagation();
+            thatEditor.moveTab(parseInt(this.dataset.tab), parseInt(this.dataset.direction));
+        });
         li.appendChild(moveTabLeft);
         const tabLabel = document.createElement('span');
         tabLabel.textContent = ' ' + this.simplifyLocalizedLabel(tab.label) + ' ';
         li.appendChild(tabLabel);
         const moveTabRight = document.createElement('i');
         moveTabRight.classList.add('fas', 'fa-caret-right', 'move-tab');
-        moveTabRight.dataset.id = i;
+        moveTabRight.dataset.tab = i;
         moveTabRight.dataset.direction = '1';
+        moveTabRight.addEventListener('click', function (event) {
+            event.stopPropagation();
+            thatEditor.moveTab(parseInt(this.dataset.tab), parseInt(this.dataset.direction));
+        });
         li.appendChild(moveTabRight);
         li.setAttribute('title', tab.label);
         li.addEventListener('click', function (event) {
@@ -73,6 +83,8 @@ class ShowitemEditor {
     }
 
     createContentItem(i, tab) {
+        let thatEditor = this; // for event handlers
+
         const div = document.createElement('div');
         div.setAttribute('id', 'content-' + i);
         div.classList.add('tab-content');
@@ -88,6 +100,10 @@ class ShowitemEditor {
             moveItemUp.dataset.tab = i;
             moveItemUp.dataset.item = j;
             moveItemUp.dataset.direction = '-1';
+            moveItemUp.addEventListener('click', function (event) {
+                event.stopPropagation();
+                thatEditor.moveItem(parseInt(this.dataset.tab), parseInt(this.dataset.item), parseInt(this.dataset.direction));
+            });
             itemElement.appendChild(moveItemUp);
 
             const itemText = document.createElement('span');
@@ -105,6 +121,10 @@ class ShowitemEditor {
             moveItemDown.dataset.tab = i;
             moveItemDown.dataset.item = j;
             moveItemDown.dataset.direction = '1';
+            moveItemDown.addEventListener('click', function (event) {
+                event.stopPropagation();
+                thatEditor.moveItem(parseInt(this.dataset.tab), parseInt(this.dataset.item), parseInt(this.dataset.direction));
+            });
             itemElement.appendChild(moveItemDown);
 
             div.appendChild(itemElement);
@@ -128,6 +148,18 @@ class ShowitemEditor {
 
     reloadFromString(showitemString) {
         this.tabs.buildConfigFromString(showitemString);
+        this.clearContainer();
+        this.buildEditor();
+    }
+
+    moveTab(index, direction) {
+        this.tabs.moveTab(index, direction);
+        this.clearContainer();
+        this.buildEditor();
+    }
+
+    moveItem(tabIndex, itemIndex, direction) {
+        this.tabs.moveItem(tabIndex, itemIndex, direction);
         this.clearContainer();
         this.buildEditor();
     }

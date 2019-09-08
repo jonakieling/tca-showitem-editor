@@ -113,20 +113,12 @@ class ShowitemTabs {
         return showitemString.substr(1);
     }
 
-    moveTabLeft(tabIndex) {
-        this.config = this.moveArrayEntry(this.config, tabIndex, -1);
+    moveTab(tabIndex, direction) {
+        this.config = this.moveArrayEntry(this.config, tabIndex, direction);
     }
 
-    moveTabRight(tabIndex) {
-        this.config = this.moveArrayEntry(this.config, tabIndex, 1);
-    }
-
-    moveItemUp(tabIndex, itemIndex) {
-        this.config[tabIndex].items = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, -1);
-    }
-
-    moveItemDown(tabIndex, itemIndex) {
-        this.config[tabIndex].items = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, 1);
+    moveItem(tabIndex, itemIndex, direction) {
+        this.config[tabIndex].items = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, direction);
     }
 
     moveArrayEntry(array, index, direction) {
