@@ -113,4 +113,30 @@ class ShowitemTabs {
         return showitemString.substr(1);
     }
 
+    moveTabLeft(tabIndex) {
+        this.config = this.moveArrayEntry(this.config, tabIndex, -1);
+    }
+
+    moveTabRight(tabIndex) {
+        this.config = this.moveArrayEntry(this.config, tabIndex, 1);
+    }
+
+    moveItemUp(tabIndex, itemIndex) {
+        this.config[tabIndex].items = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, -1);
+    }
+
+    moveItemDown(tabIndex, itemIndex) {
+        this.config[tabIndex].items = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, 1);
+    }
+
+    moveArrayEntry(array, index, direction) {
+        if (index + direction >= 0 && index + direction < array.length) {
+            const target = array[index + direction];
+            array = array.copyWithin(index + direction, index, index + 1);
+            array[index] = target;
+        }
+
+        return array;
+    }
+
 }
