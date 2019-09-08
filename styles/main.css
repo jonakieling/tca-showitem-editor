@@ -48,6 +48,13 @@ input {
     cursor: grab;
 }
 
+.nav .nav-item:first-of-type > .move-tab.left,
+.nav .nav-item:last-of-type > .move-tab.right,
+.tabs .tab-content > div:first-of-type .move-item.up,
+.tabs .tab-content > div:last-of-type .move-item.down {
+    display: none;
+}
+
 .nav .nav-item:hover {
     background: #e1e0e0;
 }
