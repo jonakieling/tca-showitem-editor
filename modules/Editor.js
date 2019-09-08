@@ -94,10 +94,8 @@ class ShowitemEditor {
             if (item.type === 'palette') {
                 itemText.textContent = ' pallete ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label) + ' ';
             } else if (item.type === 'linebreak') {
-                const itemElement = document.createElement('div');
                 itemText.textContent = ' linebreak ';
             } else if (item.type === 'field') {
-                const itemElement = document.createElement('div');
                 itemText.textContent = ' field ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label) + ' ';
             }
             itemElement.appendChild(itemText);
