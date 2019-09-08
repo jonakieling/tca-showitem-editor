@@ -30,12 +30,22 @@ input {
 }
 
 .nav .nav-item {
-    cursor: pointer;
     margin-bottom: -1px;
     display: block;
     padding: 6px 12px;
     border-radius: 2px 2px 0 0;
     overflow: hidden;
+}
+
+.nav .nav-item:not(.active) > span {
+    cursor: pointer;
+}
+
+.nav .nav-item > .move-tab.left,
+.nav .nav-item > .move-tab.right,
+.tabs .tab-content .move-item.up,
+.tabs .tab-content .move-item.down {
+    cursor: grab;
 }
 
 .nav .nav-item:hover {
