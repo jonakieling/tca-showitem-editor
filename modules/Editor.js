@@ -44,7 +44,7 @@ class ShowitemEditor {
         }
         li.dataset.content = 'content-' + i;
         const moveTabLeft = document.createElement('i');
-        moveTabLeft.classList.add('fas', 'fa-caret-left');
+        moveTabLeft.classList.add('fas', 'fa-caret-left', 'move-tab');
         moveTabLeft.dataset.id = i;
         moveTabLeft.dataset.direction = '-1';
         li.appendChild(moveTabLeft);
@@ -52,7 +52,7 @@ class ShowitemEditor {
         tabLabel.textContent = ' ' + this.simplifyLocalizedLabel(tab.label) + ' ';
         li.appendChild(tabLabel);
         const moveTabRight = document.createElement('i');
-        moveTabRight.classList.add('fas', 'fa-caret-right');
+        moveTabRight.classList.add('fas', 'fa-caret-right', 'move-tab');
         moveTabRight.dataset.id = i;
         moveTabRight.dataset.direction = '1';
         li.appendChild(moveTabRight);
@@ -84,7 +84,7 @@ class ShowitemEditor {
             const itemElement = document.createElement('div');
 
             const moveItemUp = document.createElement('i');
-            moveItemUp.classList.add('fas', 'fa-caret-up');
+            moveItemUp.classList.add('fas', 'fa-caret-up', 'move-item');
             moveItemUp.dataset.tab = i;
             moveItemUp.dataset.item = j;
             moveItemUp.dataset.direction = '-1';
@@ -101,7 +101,7 @@ class ShowitemEditor {
             itemElement.appendChild(itemText);
 
             const moveItemDown = document.createElement('i');
-            moveItemDown.classList.add('fas', 'fa-caret-down');
+            moveItemDown.classList.add('fas', 'fa-caret-down', 'move-item');
             moveItemDown.dataset.tab = i;
             moveItemDown.dataset.item = j;
             moveItemDown.dataset.direction = '1';
