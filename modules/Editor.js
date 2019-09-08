@@ -41,7 +41,7 @@ class ShowitemEditor {
         const li = document.createElement('li');
         li.setAttribute('id', 'nav-' + i);
         li.classList.add('nav-item');
-        if (i === 0) {
+        if (i === parseInt(localStorage.getItem('currentTab'))) {
             li.classList.add('active');
         }
         li.dataset.content = 'content-' + i;
@@ -78,6 +78,7 @@ class ShowitemEditor {
             });
             this.classList.add('active');
             document.getElementById(this.dataset.content).classList.add('active');
+            localStorage.setItem('currentTab', i);
         });
         return li;
     }
@@ -88,7 +89,7 @@ class ShowitemEditor {
         const div = document.createElement('div');
         div.setAttribute('id', 'content-' + i);
         div.classList.add('tab-content');
-        if (i === 0) {
+        if (i === parseInt(localStorage.getItem('currentTab'))) {
             div.classList.add('active');
         }
         for (let j = 0; j < tab.items.length; j++) {
@@ -153,14 +154,20 @@ class ShowitemEditor {
     }
 
     moveTab(index, direction) {
-        this.tabs.moveTab(index, direction);
-        this.clearContainer();
-        this.buildEditor();
+        if (this.tabs.moveTab(index, direction)) {
+            const currentTab = parseInt(localStorage.getItem('currentTab'));
+            if (index === currentTab) {
+                localStorage.setItem('currentTab', currentTab + direction)
+            }
+            this.clearContainer();
+            this.buildEditor();
+        }
     }
 
     moveItem(tabIndex, itemIndex, direction) {
-        this.tabs.moveItem(tabIndex, itemIndex, direction);
-        this.clearContainer();
-        this.buildEditor();
+        if (this.tabs.moveItem(tabIndex, itemIndex, direction)) {
+            this.clearContainer();
+            this.buildEditor();
+        }
     }
 }

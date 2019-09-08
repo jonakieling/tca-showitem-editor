@@ -114,11 +114,15 @@ class ShowitemTabs {
     }
 
     moveTab(tabIndex, direction) {
-        this.config = this.moveArrayEntry(this.config, tabIndex, direction);
+        const {array, moved} = this.moveArrayEntry(this.config, tabIndex, direction);
+        this.config = array;
+        return moved;
     }
 
     moveItem(tabIndex, itemIndex, direction) {
-        this.config[tabIndex].items = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, direction);
+        const {array, moved} = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, direction);
+        this.config[tabIndex].items = array;
+        return moved;
     }
 
     moveArrayEntry(array, index, direction) {
@@ -126,9 +130,10 @@ class ShowitemTabs {
             const target = array[index + direction];
             array = array.copyWithin(index + direction, index, index + 1);
             array[index] = target;
+            return {array, moved: true};
         }
 
-        return array;
+        return {array, moved: false};
     }
 
 }
