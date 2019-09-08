@@ -13,7 +13,7 @@ class ShowitemTabs {
         // initiate tabs config  with default tab
         let config = [
             {
-                name: tabs[0],
+                label: tabs[0],
                 items: []
             }
         ];
@@ -23,11 +23,11 @@ class ShowitemTabs {
         for (let i = 0; i < parts.length; i++) {
 
             if (parts[i].startsWith('--div--')) { // a new tab is defined and added
-                const tabName = parts[i].split(';')[1];
-                let potentiallyExistingTabIndex = tabs.indexOf(tabName);
+                const tabLabel = parts[i].split(';')[1];
+                let potentiallyExistingTabIndex = tabs.indexOf(tabLabel);
                 if (potentiallyExistingTabIndex === -1) {
                     config.push({
-                        name: tabName,
+                        label: tabLabel,
                         items: []
                     });
                     currentTab = config.length - 1; // current tab is the new one added
@@ -76,9 +76,9 @@ class ShowitemTabs {
         let showitemString = '';
         for (let i = 0; i < this.config.length; i++) {
             let tab = this.config[i];
-            // add tab indicator of not the first tab and add the tab name
-            if (tab.name !== '') {
-                showitemString += ',--div--;' + tab.name;
+            // add tab indicator of not the first tab and add the tab label
+            if (tab.label !== '') {
+                showitemString += ',--div--;' + tab.label;
             }
             // add items
             for (let j = 0; j < tab.items.length; j++) {

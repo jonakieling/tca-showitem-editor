@@ -30,13 +30,13 @@ class ShowitemEditor {
             const moveTabLeft = document.createElement('i');
             moveTabLeft.classList.add('fas', 'fa-caret-left');
             li.appendChild(moveTabLeft);
-            const tabName = document.createElement('span');
-            tabName.textContent = ' ' + this.simplifyLocalizedLabel(tab.name) + ' ';
-            li.appendChild(tabName);
+            const tabLabel = document.createElement('span');
+            tabLabel.textContent = ' ' + this.simplifyLocalizedLabel(tab.label) + ' ';
+            li.appendChild(tabLabel);
             const moveTabRight = document.createElement('i');
             moveTabRight.classList.add('fas', 'fa-caret-right');
             li.appendChild(moveTabRight);
-            li.setAttribute('title', tab.name);
+            li.setAttribute('title', tab.label);
             li.addEventListener('click', function (event) {
                 const activeNav = document.querySelectorAll('.nav-item.active');
                 const activeTab = document.querySelectorAll('.tab-content.active');
@@ -101,6 +101,7 @@ class ShowitemEditor {
 
         return label;
     }
+
 
     clearContainer() {
         while (this.container.hasChildNodes()) {
