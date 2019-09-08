@@ -20,12 +20,20 @@ class ShowitemTabs {
         // form definitions are defined in a comma separated sequence, we put them in an array to process further
         let parts = showitemString.split(',');
         let currentTab = 0; // keep track of the current tab to hop around and put items in the correct tab
+        let generalTab = 0; // items without a tab (before the first --div--) are move to the general tab
         for (let i = 0; i < parts.length; i++) {
 
             if (parts[i].startsWith('--div--')) { // a new tab is defined and added
                 const tabLabel = parts[i].split(';')[1];
+                if (
+                    tabLabel.startsWith('LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general')
+                    && generalTab === 0
+                ) {
+                    generalTab = i;
+                }
                 let potentiallyExistingTabIndex = tabs.indexOf(tabLabel);
                 if (potentiallyExistingTabIndex === -1) {
+                    tabs.push(tabLabel);
                     config.push({
                         label: tabLabel,
                         items: []
@@ -68,6 +76,12 @@ class ShowitemTabs {
                 }
             }
         }
+
+        // move items before the first --div-- into the tab general
+        const defaultItems = config[0].items;
+        const generalItems = config[generalTab].items;
+        config[generalTab].items = generalItems.concat(defaultItems);
+        config = config.slice(1, config.length);
 
         this.config = config;
     }

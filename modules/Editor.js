@@ -102,7 +102,6 @@ class ShowitemEditor {
         return label;
     }
 
-
     clearContainer() {
         while (this.container.hasChildNodes()) {
             this.container.removeChild(this.container.lastChild);
