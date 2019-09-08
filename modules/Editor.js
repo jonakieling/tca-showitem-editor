@@ -33,6 +33,14 @@ class ShowitemEditor {
         contentContainer.setAttribute('class', 'tabs');
         contentContainer.appendChild(contentFragment);
         this.container.appendChild(contentContainer);
+
+        // add the current config string
+        const currentShowitemStringWrapper = document.createElement('div');
+        currentShowitemStringWrapper.id = 'current-config';
+        const currentShowitemString = document.createElement('span');
+        currentShowitemString.textContent = this.tabs.toString();
+        currentShowitemStringWrapper.appendChild(currentShowitemString);
+        this.container.appendChild(currentShowitemStringWrapper);
     }
 
     createNavItem(i, tab) {

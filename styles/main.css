@@ -41,6 +41,10 @@ input {
     cursor: pointer;
 }
 
+.tabs {
+    margin-bottom: 20px;
+}
+
 .nav .nav-item > .move-tab.left,
 .nav .nav-item > .move-tab.right,
 .tabs .tab-content .move-item.up,
@@ -81,4 +85,11 @@ input {
 
 .tab-content.active {
     display: block;
+}
+
+#current-config {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
 }
