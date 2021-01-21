@@ -3,6 +3,7 @@
     font-family: Verdana, Arial, Helvetica, sans-serif;
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 input {
@@ -52,6 +53,18 @@ input {
     display: none;
 }
 
+.move-item {
+    border: 1px solid #000;
+    padding: 4px;
+    margin: 2px;
+}
+
+.move-item:hover {
+    background-color: #0f5c9f !important;
+    color: white;
+    cursor: pointer;
+}
+
 .nav .nav-item:hover {
     background: #e1e0e0;
 }
@@ -74,6 +87,7 @@ input {
     margin-top: -1px;
     display: none;
     min-height: 300px;
+    overflow: hidden;
 }
 
 .tab-content.active {
@@ -85,4 +99,53 @@ input {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 12px;
+}
+
+.palette {
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 12px 3px;
+    clear: both;
+}
+
+.palette:hover {
+    background-color: #6daae055;
+}
+
+.palette:hover * {
+    background-color: #6daae055;
+}
+
+.field {
+    margin: 9px 15px 15px 15px;
+    padding: 15px 12px 3px;
+    float: left;
+    background-color: #fefefe;
+    border: 1px solid #6daae0;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.field:hover {
+    background-color: #6daae055;
+}
+
+.field:hover * {
+    background-color: #6daae055;
+}
+
+.linebreak {
+    clear: both;
+    display: table;
+    content: '';
+    height: 20px;
+    background-color: #eee;
+    width: 100%;
+}
+
+.linebreak:hover {
+    background-color: #6daae055;
+}
+
+.linebreak:hover * {
+    background-color: #6daae055;
 }

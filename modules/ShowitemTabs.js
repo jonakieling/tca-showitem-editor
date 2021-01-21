@@ -59,9 +59,10 @@ class ShowitemTabs {
                 let palette = parts[i].split(';');
                 config[currentTab].items.push({
                     type: 'palette',
-                    label: palette[1],
+                    title: palette[1],
                     identifier: palette[2],
-                    config: this.buildPaletteConfigFromString(TCA.palettes[palette[2]]['showitem'])
+                    config: this.buildPaletteConfigFromString(TCA.palettes[palette[2]]['showitem']),
+                    label: TCA.palettes[palette[2]]['label']
                 });
 
             } else if (parts[i].startsWith('--linebreak--')) { // a linebreak is defined and added to the current tab
