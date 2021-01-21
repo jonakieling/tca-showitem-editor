@@ -1,8 +1,20 @@
+/**
+ *
+ */
 class ShowitemTabs {
+
+    /**
+     *
+     * @param showitemString
+     */
     constructor(showitemString) {
         this.buildConfigFromString(showitemString);
     }
 
+    /**
+     *
+     * @param showitemString
+     */
     buildConfigFromString(showitemString) {
         // remove whitespaces to prevent ambiguities when splitting into tokens
         showitemString = showitemString.replace(/\s/g, '');
@@ -48,7 +60,8 @@ class ShowitemTabs {
                 config[currentTab].items.push({
                     type: 'palette',
                     label: palette[1],
-                    identifier: palette[2]
+                    identifier: palette[2],
+                    config: this.buildPaletteConfigFromString(TCA.palettes[palette[2]]['showitem'])
                 });
 
             } else if (parts[i].startsWith('--linebreak--')) { // a linebreak is defined and added to the current tab
@@ -78,14 +91,68 @@ class ShowitemTabs {
         }
 
         // move items before the first --div-- into the tab general
-        const defaultItems = config[0].items;
-        const generalItems = config[generalTab].items;
-        config[generalTab].items = generalItems.concat(defaultItems);
-        config = config.slice(1, config.length);
+        if (config[0] && config[generalTab]) {
+            const defaultItems = config[0].items;
+            const generalItems = config[generalTab].items;
+            config[generalTab].items = generalItems.concat(defaultItems);
+            config = config.slice(1, config.length);
+        }
 
         this.config = config;
     }
 
+    /**
+     *
+     * @param paletteString
+     * @returns {[]}
+     */
+    buildPaletteConfigFromString(paletteString) {
+        // remove whitespaces to prevent ambiguities when splitting into tokens
+        paletteString = paletteString.replace(/\s/g, '');
+
+        let config = [];
+
+        // palette definitions are defined in a comma separated sequence, we put them in an array to process further
+        let parts = paletteString.split(',');
+        for (let i = 0; i < parts.length; i++) {
+
+            if (parts[i].startsWith('--div--')) {
+                // tabs within palettes are not allowed
+            } else if (parts[i].startsWith('--palette--')) {
+                // palettes within palettes are not allowed
+            } else if (parts[i].startsWith('--linebreak--')) { // a linebreak is defined and added
+                config.push({
+                    type: 'linebreak'
+                });
+
+            } else { // everything else are fields with optional labels
+                let field = parts[i].split(';');
+                switch (field.length) {
+                    case 1:
+                        config.push({
+                            type: 'field',
+                            label: '',
+                            identifier: field[0]
+                        });
+                        break;
+                    case 2:
+                        config.push({
+                            type: 'field',
+                            label: field[1],
+                            identifier: field[0]
+                        });
+                        break;
+                }
+            }
+        }
+
+        return config;
+    }
+
+    /**
+     *
+     * @returns {string}
+     */
     toString() {
         let showitemString = '';
         for (let i = 0; i < this.config.length; i++) {
@@ -113,18 +180,38 @@ class ShowitemTabs {
         return showitemString.substr(1);
     }
 
+    /**
+     *
+     * @param tabIndex
+     * @param direction
+     * @returns {boolean}
+     */
     moveTab(tabIndex, direction) {
         const {array, moved} = this.moveArrayEntry(this.config, tabIndex, direction);
         this.config = array;
         return moved;
     }
 
+    /**
+     *
+     * @param tabIndex
+     * @param itemIndex
+     * @param direction
+     * @returns {boolean}
+     */
     moveItem(tabIndex, itemIndex, direction) {
         const {array, moved} = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, direction);
         this.config[tabIndex].items = array;
         return moved;
     }
 
+    /**
+     *
+     * @param array
+     * @param index
+     * @param direction
+     * @returns {{array: *, moved: boolean}}
+     */
     moveArrayEntry(array, index, direction) {
         if (index + direction >= 0 && index + direction < array.length) {
             const target = array[index + direction];

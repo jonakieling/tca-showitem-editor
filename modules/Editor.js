@@ -139,6 +139,35 @@ class ShowitemEditor {
             let item = tab.items[j];
             const itemElement = document.createElement('div');
 
+            if (item.type === 'palette') {
+                itemElement.style = 'border-bottom: 1px solid #ccc; padding: 15px 12px 3px;';
+                const paletteHeadline = document.createElement('h4');
+                paletteHeadline.textContent = this.simplifyLocalizedLabel(item.label) + ' [' + item.identifier + ']';
+                itemElement.appendChild(paletteHeadline);
+                for (let k = 0; k < item.config.length; k++) {
+                    let paletteItem = item.config[k];
+                    const paletteItemElement = document.createElement('div');
+
+                    if (paletteItem.type === 'linebreak') {
+                        paletteItemElement.style = "clear: both; display: table; content: ''; height: 20px; background-color: #eee; width: 100%;";
+                    } else if (paletteItem.type === 'field') {
+                        paletteItemElement.style = 'padding: 15px 12px 3px; width: 20%; float: left;';
+                        const itemText = document.createElement('span');
+                        itemText.textContent = ' field ' + paletteItem.identifier + ' ' + this.simplifyLocalizedLabel(paletteItem.label) + ' ';
+                        paletteItemElement.appendChild(itemText);
+                    }
+
+                    itemElement.appendChild(paletteItemElement);
+                }
+            } else if (item.type === 'linebreak') {
+                itemElement.style = "clear: both; display: table; content: ''; height: 20px; background-color: #eee; width: 100%;";
+            } else if (item.type === 'field') {
+                itemElement.style = 'padding: 15px 12px 3px; width: 20%; float: left;';
+                const itemText = document.createElement('span');
+                itemText.textContent = ' field ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label) + ' ';
+                itemElement.appendChild(itemText);
+            }
+
             const moveItemUp = document.createElement('i');
             moveItemUp.classList.add('fas', 'fa-caret-up', 'move-item', 'up');
             moveItemUp.dataset.tab = i;
@@ -149,16 +178,6 @@ class ShowitemEditor {
                 thatEditor.moveItem(parseInt(this.dataset.tab), parseInt(this.dataset.item), parseInt(this.dataset.direction));
             });
             itemElement.appendChild(moveItemUp);
-
-            const itemText = document.createElement('span');
-            if (item.type === 'palette') {
-                itemText.textContent = ' pallete ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label) + ' ';
-            } else if (item.type === 'linebreak') {
-                itemText.textContent = ' linebreak ';
-            } else if (item.type === 'field') {
-                itemText.textContent = ' field ' + item.identifier + ' ' + this.simplifyLocalizedLabel(item.label) + ' ';
-            }
-            itemElement.appendChild(itemText);
 
             const moveItemDown = document.createElement('i');
             moveItemDown.classList.add('fas', 'fa-caret-down', 'move-item', 'down');

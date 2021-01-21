@@ -45,13 +45,6 @@ input {
     margin-bottom: 20px;
 }
 
-.nav .nav-item > .move-tab.left,
-.nav .nav-item > .move-tab.right,
-.tabs .tab-content .move-item.up,
-.tabs .tab-content .move-item.down {
-    cursor: grab;
-}
-
 .nav .nav-item:first-of-type > .move-tab.left,
 .nav .nav-item:last-of-type > .move-tab.right,
 .tabs .tab-content > div:first-of-type .move-item.up,
@@ -78,7 +71,6 @@ input {
 .tab-content {
     border: 1px solid #ccc;
     background-color: #fafafa;
-    padding: 15px;
     margin-top: -1px;
     display: none;
     min-height: 300px;

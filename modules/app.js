@@ -1,4 +1,5 @@
 requirejs(["ShowitemTabs", "Editor"], function () {
+    console.log(TCA);
     let input = document.querySelector("input[name='showitem-string']");
     let showitemString = input.value;
     let tabs = new ShowitemTabs(showitemString);
