@@ -195,6 +195,22 @@ class ShowitemTabs {
 
     /**
      *
+     * @param config
+     */
+    addTab(config) {
+        this.config.push(config);
+    }
+
+    /**
+     *
+     * @param tabIndex
+     */
+    removeTab(tabIndex) {
+        this.config.splice(tabIndex, 1);
+    }
+
+    /**
+     *
      * @param tabIndex
      * @param itemIndex
      * @param direction
@@ -204,6 +220,24 @@ class ShowitemTabs {
         const {array, moved} = this.moveArrayEntry(this.config[tabIndex].items, itemIndex, direction);
         this.config[tabIndex].items = array;
         return moved;
+    }
+
+    /**
+     *
+     * @param tabIndex
+     * @param item
+     */
+    addItem(tabIndex, item) {
+        this.config[tabIndex].items.push(item);
+    }
+
+    /**
+     *
+     * @param tabIndex
+     * @param itemIndex
+     */
+    removeItem(tabIndex, itemIndex) {
+        this.config[tabIndex].items.splice(itemIndex, 1);
     }
 
     /**
